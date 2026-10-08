@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f2f0e9">
+  <meta name="description" content="Estudio creativo de desarrollo de software. Diseñamos y construimos productos digitales que hacen avanzar las ideas.">
+  <title>Órbita — Software con otra perspectiva</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2f0e9;
+      --ink: #171814;
+      --muted: #70716a;
+      --line: rgba(23, 24, 20, .17);
+      --acid: #d7ff58;
+      --purple: #a58aff;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .wrap { width: min(1320px, calc(100% - 96px)); margin: 0 auto; }
+    .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+
+    header {
+      height: 84px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 21px; font-weight: 800; letter-spacing: -.08em; }
+    .brand-mark { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: var(--acid); font-size: 17px; }
+    .nav-links { display: flex; gap: 38px; align-items: center; font-size: 13px; font-weight: 600; }
+    .nav-links a:not(.nav-cta) { transition: opacity .2s; }
+    .nav-links a:not(.nav-cta):hover { opacity: .55; }
+    .nav-cta { border: 1px solid var(--ink); border-radius: 30px; padding: 12px 18px; transition: background .2s, color .2s; }
+    .nav-cta:hover { background: var(--ink); color: var(--paper); }
+    .menu-toggle { display: none; border: 0; background: none; cursor: pointer; font-size: 24px; }
+
+    .hero { min-height: 660px; padding: 68px 0 70px; position: relative; overflow: hidden; }
+    .hero-top { display: flex; align-items: center; justify-content: space-between; }
+    .eyebrow { display: flex; gap: 10px; align-items: center; font-size: 10px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #8cb92b; box-shadow: 0 0 0 4px rgba(140, 185, 43, .14); }
+    .hero-index { font-size: 10px; color: var(--muted); }
+    .hero-content { position: relative; z-index: 1; margin-top: 79px; max-width: 900px; }
+    h1 { margin: 0; font-size: clamp(58px, 9.5vw, 132px); line-height: .91; letter-spacing: -.095em; font-weight: 600; }
+    h1 .second-line { display: block; }
+    h1 .accent { color: #777867; font-family: Georgia, serif; font-weight: 400; font-style: italic; letter-spacing: -.09em; }
+    .hero-bottom { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-top: 44px; }
+    .hero-copy { max-width: 380px; color: var(--muted); font-size: 15px; line-height: 1.75; }
+    .hero-copy strong { color: var(--ink); font-weight: 600; }
+    .round-link { display: inline-flex; align-items: center; gap: 15px; font-size: 12px; font-weight: 700; }
+    .round-link span { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid var(--ink); border-radius: 50%; font-size: 19px; transition: transform .2s, background .2s; }
+    .round-link:hover span { transform: rotate(45deg); background: var(--acid); }
+    .orbit-art { position: absolute; width: 460px; height: 460px; right: -4%; top: 140px; pointer-events: none; }
+    .orbit-art .ring { position: absolute; border: 1px solid rgba(23, 24, 20, .15); border-radius: 50%; }
+    .ring-one { inset: 0; }
+    .ring-two { inset: 48px; }
+    .ring-three { inset: 96px; }
+    .orbit-core { position: absolute; inset: 145px; display: grid; place-items: center; border-radius: 50%; background: var(--acid); font-size: 60px; transform: rotate(-18deg); }
+    .orbit-star { position: absolute; top: 28px; right: 52px; font-size: 38px; color: var(--purple); }
+    .orbit-dot { position: absolute; width: 12px; height: 12px; left: 65px; bottom: 68px; border-radius: 50%; background: var(--purple); }
+    .orbit-label { position: absolute; right: 6px; bottom: 63px; transform: rotate(-90deg); font-size: 9px; color: var(--muted); }
+
+    .ticker { background: var(--ink); color: var(--paper); overflow: hidden; }
+    .ticker-inner { display: flex; width: max-content; align-items: center; gap: 30px; padding: 18px 0; animation: ticker 28s linear infinite; }
+    .ticker span { font-size: 11px; }
+    .ticker .star { color: var(--acid); font-size: 17px; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    section { padding: 112px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: start; gap: 30px; margin-bottom: 64px; }
+    .section-label { font-size: 10px; color: var(--muted); }
+    .section-title { margin: 0; max-width: 700px; font-size: clamp(38px, 5vw, 66px); line-height: 1.02; letter-spacing: -.075em; font-weight: 600; }
+    .section-title em { font-family: Georgia, serif; font-weight: 400; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .service { padding: 26px 28px 26px 0; border-bottom: 1px solid var(--line); min-height: 235px; }
+    .service + .service { padding-left: 28px; border-left: 1px solid var(--line); }
+    .service-no { font-size: 10px; color: var(--muted); }
+    .service h3 { margin: 43px 0 12px; font-size: 22px; letter-spacing: -.05em; }
+    .service p { max-width: 290px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+    .work { background: #e6e3da; }
+    .work-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 22px; }
+    .project-card { min-width: 0; }
+    .project-visual { height: 390px; position: relative; overflow: hidden; display: grid; place-items: center; }
+    .project-visual.violet { background: #b5a2ff; }
+    .project-visual.green { background: #bce879; }
+    .project-art { width: 74%; height: 72%; border: 1px solid rgba(23, 24, 20, .45); background: rgba(242, 240, 233, .74); box-shadow: 15px 18px 0 rgba(23, 24, 20, .14); transform: rotate(-4deg); padding: 18px; }
+    .project-art .window-bar { display: flex; gap: 5px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .window-bar i { width: 6px; height: 6px; background: var(--ink); border-radius: 50%; opacity: .5; }
+    .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; height: calc(100% - 30px); }
+    .dash-block { background: #dcd8cf; padding: 12px; position: relative; overflow: hidden; }
+    .dash-block.dark { background: var(--ink); }
+    .dash-lines { height: 6px; width: 55%; background: #9f9e95; margin-bottom: 9px; }
+    .dash-lines.short { width: 31%; }
+    .dash-chart { position: absolute; inset: 48% 10px 10px; border-bottom: 2px solid var(--purple); transform: skewY(-15deg); }
+    .dash-block.dark .dash-lines { background: #55564f; }
+    .project-name { display: flex; justify-content: space-between; align-items: center; margin-top: 17px; }
+    .project-name h3 { margin: 0; font-size: 19px; letter-spacing: -.04em; }
+    .project-name span { font-size: 10px; color: var(--muted); }
+    .project-type { margin-top: 6px; color: var(--muted); font-size: 11px; }
+
+    .manifesto { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
+    .manifesto-graphic { min-height: 330px; background: var(--acid); display: grid; place-items: center; position: relative; overflow: hidden; }
+    .manifesto-graphic::before, .manifesto-graphic::after { content: ""; position: absolute; width: 270px; height: 270px; border: 1px solid rgba(23, 24, 20, .26); border-radius: 50%; }
+    .manifesto-graphic::after { width: 190px; height: 190px; }
+    .manifesto-graphic span { position: relative; z-index: 1; font-size: 74px; }
+    .manifesto-copy h2 { margin: -10px 0 26px; font-size: clamp(36px, 5vw, 61px); line-height: 1.02; letter-spacing: -.075em; font-weight: 600; }
+    .manifesto-copy h2 em { font-family: Georgia, serif; font-weight: 400; }
+    .manifesto-copy p { max-width: 560px; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .manifesto-copy .round-link { margin-top: 20px; }
+
+    .contact { padding: 100px 0 72px; background: var(--ink); color: var(--paper); }
+    .contact-top { display: flex; justify-content: space-between; align-items: start; gap: 30px; }
+    .contact-label { color: #aaa99f; font-size: 10px; }
+    .contact h2 { margin: 50px 0 38px; font-size: clamp(58px, 10vw, 130px); line-height: .91; letter-spacing: -.095em; font-weight: 500; }
+    .contact h2 em { color: var(--acid); font-family: Georgia, serif; font-weight: 400; }
+    .contact-link { display: inline-flex; align-items: center; gap: 14px; padding: 15px 20px; border-radius: 40px; background: var(--acid); color: var(--ink); font-size: 12px; font-weight: 700; transition: transform .2s; }
+    .contact-link:hover { transform: translateY(-3px); }
+    .contact-link span { font-size: 18px; }
+    footer { display: flex; justify-content: space-between; align-items: center; gap: 20px; border-top: 1px solid rgba(242, 240, 233, .2); padding-top: 24px; margin-top: 105px; color: #aaa99f; font-size: 10px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a:hover { color: var(--acid); }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 40px, 600px); }
+      header { height: 70px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; z-index: 5; top: 69px; left: 0; right: 0; padding: 24px 20px; background: var(--paper); border-bottom: 1px solid var(--line); align-items: stretch; flex-direction: column; gap: 22px; }
+      .nav-links.open { display: flex; }
+      .nav-cta { text-align: center; }
+      .hero { min-height: auto; padding: 48px 0 70px; }
+      .hero-content { margin-top: 83px; }
+      h1 { font-size: clamp(56px, 13.5vw, 100px); }
+      .hero-bottom { align-items: start; flex-direction: column; gap: 25px; margin-top: 29px; }
+      .hero-copy { font-size: 14px; }
+      .orbit-art { width: 230px; height: 230px; right: -65px; top: 119px; opacity: .58; }
+      .orbit-core { inset: 73px; font-size: 35px; }
+      .orbit-star { top: 13px; right: 28px; font-size: 25px; }
+      .orbit-dot { left: 32px; bottom: 34px; width: 8px; height: 8px; }
+      .orbit-label { display: none; }
+      section { padding: 78px 0; }
+      .section-head { flex-direction: column; margin-bottom: 42px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service, .service + .service { min-height: auto; padding: 23px 0; border-left: 0; }
+      .service h3 { margin: 22px 0 9px; }
+      .work-grid { grid-template-columns: 1fr; gap: 32px; }
+      .project-visual { height: 300px; }
+      .manifesto { grid-template-columns: 1fr; gap: 42px; }
+      .manifesto-graphic { min-height: 250px; }
+      .manifesto-graphic::before { width: 220px; height: 220px; }
+      .manifesto-graphic::after { width: 155px; height: 155px; }
+      .manifesto-copy h2 { margin-top: 0; }
+      .contact { padding: 75px 0 35px; }
+      .contact h2 { margin: 64px 0 30px; }
+      footer { margin-top: 80px; flex-wrap: wrap; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav wrap" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Órbita, inicio"><span class="brand-mark">✳</span> órbita</a>
+      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="#servicios">Qué hacemos</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#estudio">El estudio</a>
+        <a class="nav-cta" href="#contacto">Hablemos <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" id="inicio">
+      <div class="hero-top">
+        <div class="eyebrow mono"><span class="status-dot"></span> Estudio digital independiente</div>
+        <div class="hero-index mono">46° 32' N / 06° 38' E</div>
+      </div>
+      <div class="hero-content">
+        <h1>Ideas que<br><span class="second-line">encuentran su <span class="accent">órbita.</span></span></h1>
+        <div class="hero-bottom">
+          <p class="hero-copy">Diseñamos y desarrollamos <strong>software con intención</strong>: productos digitales útiles, experiencias memorables y tecnología que abre caminos.</p>
+          <a href="#proyectos" class="round-link">Explora nuestro trabajo <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+      <div class="orbit-art" aria-hidden="true">
+        <div class="ring ring-one"></div><div class="ring ring-two"></div><div class="ring ring-three"></div>
+        <div class="orbit-core">✳</div><span class="orbit-star">✳</span><span class="orbit-dot"></span>
+        <span class="orbit-label mono">Ideas en movimiento · 2025</span>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="Diseño, desarrollo, producto y tecnología">
+      <div class="ticker-inner mono" aria-hidden="true">
+        <span>Diseño con intención</span><span class="star">✳</span><span>Software a medida</span><span class="star">✳</span><span>Ideas en movimiento</span><span class="star">✳</span><span>Productos digitales</span><span class="star">✳</span>
+        <span>Diseño con intención</span><span class="star">✳</span><span>Software a medida</span><span class="star">✳</span><span>Ideas en movimiento</span><span class="star">✳</span><span>Productos digitales</span><span class="star">✳</span>
+      </div>
+    </div>
+
+    <section id="servicios" class="wrap">
+      <div class="section-head">
+        <span class="section-label mono">01 / Lo que hacemos</span>
+        <h2 class="section-title">Del primer boceto<br>a <em>algo extraordinario.</em></h2>
+      </div>
+      <div class="services-grid">
+        <article class="service">
+          <span class="service-no mono">01 — Estrategia</span>
+          <h3>Encontramos el norte.</h3>
+          <p>Convertimos retos complejos en oportunidades claras. Investigamos, definimos y trazamos el camino para que cada decisión tenga propósito.</p>
+        </article>
+        <article class="service">
+          <span class="service-no mono">02 — Diseño</span>
+          <h3>Diseñamos lo que importa.</h3>
+          <p>Experiencias digitales intuitivas, accesibles y con carácter. Diseño visual y de producto que pone a las personas en el centro.</p>
+        </article>
+        <article class="service">
+          <span class="service-no mono">03 — Desarrollo</span>
+          <h3>Lo hacemos realidad.</h3>
+          <p>Software robusto, veloz y preparado para crecer. De la web a la nube, construimos tecnología a medida que resuelve problemas reales.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="work" id="proyectos">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-label mono">02 / Trabajo seleccionado</span>
+          <h2 class="section-title">Hecho para cambiar<br>las <em>reglas del juego.</em></h2>
+        </div>
+        <div class="work-grid">
+          <article class="project-card">
+            <div class="project-visual violet" aria-label="Ilustración de plataforma de análisis de datos">
+              <div class="project-art">
+                <div class="window-bar"><i></i><i></i><i></i></div>
+                <div class="dashboard">
+                  <div class="dash-block"><div class="dash-lines"></div><div class="dash-lines short"></div><div class="dash-chart"></div></div>
+                  <div class="dash-block dark"><div class="dash-lines"></div><div class="dash-lines short"></div><div class="dash-chart"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="project-name"><h3>Forma — Datos en claro</h3><span class="mono">2024 ↗</span></div>
+            <div class="project-type">Estrategia · Diseño de producto · Desarrollo web</div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual green" aria-label="Ilustración de plataforma de colaboración">
+              <div class="project-art" style="transform: rotate(4deg); width: 70%;">
+                <div class="window-bar"><i></i><i></i><i></i></div>
+                <div class="dashboard">
+                  <div class="dash-block dark"><div class="dash-lines"></div><div class="dash-lines short"></div><div class="dash-chart"></div></div>
+                  <div class="dash-block"><div class="dash-lines"></div><div class="dash-lines short"></div><div class="dash-chart"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="project-name"><h3>Nido — Ideas en equipo</h3><span class="mono">2025 ↗</span></div>
+            <div class="project-type">Identidad · Aplicación web · Plataforma SaaS</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="estudio" class="wrap">
+      <div class="manifesto">
+        <div class="manifesto-graphic" aria-hidden="true"><span>✳</span></div>
+        <div class="manifesto-copy">
+          <span class="section-label mono">03 / Una forma distinta de hacer</span>
+          <h2>Pequeño equipo.<br><em>Ideas sin límites.</em></h2>
+          <p>Somos un estudio independiente que une estrategia, diseño e ingeniería. Trabajamos de cerca, pensamos en grande y hacemos equipo con personas que quieren construir algo mejor.</p>
+          <p>Sin fórmulas prefabricadas. Sin capas innecesarias. Solo curiosidad, oficio y ganas de resolver lo que todavía no tiene respuesta.</p>
+          <a href="#contacto" class="round-link">Conoce nuestra manera de trabajar <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="wrap">
+        <div class="contact-top">
+          <span class="contact-label mono">04 / El siguiente paso</span>
+          <span class="contact-label mono">Disponible para nuevos proyectos ↗</span>
+        </div>
+        <h2>¿Y si hacemos<br>algo <em>increíble?</em></h2>
+        <a class="contact-link" href="mailto:hola@orbita.studio">Cuéntanos tu idea <span aria-hidden="true">↗</span></a>
+        <footer>
+          <a class="brand" href="#inicio"><span class="brand-mark">✳</span> órbita</a>
+          <span>© <span id="year">2025</span> Órbita Studio. Hecho con intención.</span>
+          <div class="footer-links"><a href="mailto:hola@orbita.studio">Email</a><a href="#inicio">Volver arriba ↑</a></div>
+        </footer>
+      </div>
+    </section>
+  </main>
+  <script>
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menú");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
